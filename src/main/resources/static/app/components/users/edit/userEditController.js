@@ -22,7 +22,9 @@ angular.module('app')
 
         const updateCallback = response => vm.msg='Zapisano zmiany';
         vm.updateUser = () => {
-            UserService.update(vm.user).catch(errorCallback);
+            UserService.update(vm.user)
+                .then(updateCallback)
+                .catch(errorCallback);
         };
 
     });
