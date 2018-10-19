@@ -17,21 +17,28 @@ angular.module('app')
         });
     };
 
+    const errorCallback = err => {
+        vm.msg=`Błąd zapisu: ${err.data.message}`;
+    };
     vm.finishAssignment = assignment => {
         AssignmentEndService.save(assignment.id)
             .then(response => {
                 assignment.end = response.data;
                 vm.assigned = false;
-            });
+            })
+            .catch(errorCallback);
     };
     vm.search = lastName => {
         vm.users = UserService.getAll({lastName});
     };
+
     vm.assignToUser = user => {
         const assignment = new Assignment();
         assignment.userId = user.id;
         assignment.assetId = vm.asset.id;
-        AssignmentService.save(assignment).then(refreshData);
+        AssignmentService.save(assignment)
+            .then(refreshData)
+            .catch(errorCallback);
     };
     refreshData();
 });
