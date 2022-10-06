@@ -1,23 +1,12 @@
 package pl.javastart.equipy;
 
-
-public class UserDto {
-    private Long id;
-
+public class UserRequest {
     private String firstName;
-
     private String lastName;
     private String pesel;
+
     public String getFirstName() {
         return firstName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setFirstName(String firstName) {

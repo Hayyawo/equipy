@@ -1,8 +1,8 @@
 package pl.javastart.equipy;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +18,18 @@ public class UserController {
 
 
     @GetMapping("api/users")
-    public List<UserDto> getUsers(@RequestParam(required = false) String lastName) {
+    public List<UserResponse> getUsers(@RequestParam(required = false) String lastName) {
         if (lastName == null) {
             return service.getAllUsers();
         }
         return service.findByLastName(lastName);
     }
+
+    @PostMapping("api/users")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<UserRequest> save(@RequestBody UserRequest userRequest){
+        service.save(userRequest);
+        return new ResponseEntity<>(userRequest,HttpStatus.CREATED);
+    }
+
 }
