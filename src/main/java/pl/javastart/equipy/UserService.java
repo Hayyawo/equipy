@@ -3,6 +3,7 @@ package pl.javastart.equipy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,5 +37,18 @@ public class UserService {
         } else {
             repository.save(user);
         }
+    }
+
+    public UserResponse findById(Long id) {
+        return repository.findById(id)
+                .stream()
+                .map(UserDtoMapper::mapResponse)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    public void update(UserRequest userRequest) {
+        User foundByPesel = repository.findByPesel(userRequest.getPesel());
+        repository.save(foundByPesel);
     }
 }
