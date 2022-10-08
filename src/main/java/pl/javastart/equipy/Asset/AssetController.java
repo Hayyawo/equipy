@@ -1,4 +1,4 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.Asset;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +13,8 @@ public class AssetController {
         this.service = service;
     }
 
-    @GetMapping("api/assets")
-    public List<Assets> getAssets() {
-        return service.getAllAsets();
+    @GetMapping("/api/assets")
+    public List<AssetResponse> getAssets() {
+        return service.getAllAssets();
     }
 }

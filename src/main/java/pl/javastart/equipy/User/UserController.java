@@ -1,4 +1,4 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.User;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

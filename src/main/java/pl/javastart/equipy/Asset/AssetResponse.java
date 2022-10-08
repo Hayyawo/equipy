@@ -1,26 +1,12 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.Asset;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Assets {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long    id;
+import lombok.Builder;
+@Builder
+public class AssetResponse {
     private String name;
     private String description;
     private String serialNumber;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String category;
 
     public String getName() {
         return name;
@@ -44,5 +30,13 @@ public class Assets {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

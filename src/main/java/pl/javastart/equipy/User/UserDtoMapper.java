@@ -1,9 +1,5 @@
-package pl.javastart.equipy;
+package pl.javastart.equipy.User;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-@Component
 public class UserDtoMapper {
     static UserResponse mapResponse(User user) {
         UserResponse dto = new UserResponse();
@@ -14,7 +10,7 @@ public class UserDtoMapper {
         return dto;
     }
 
-    User mapRequest(UserRequest userRequest) {
+   static User mapRequest(UserRequest userRequest) {
         User user = new User();
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
