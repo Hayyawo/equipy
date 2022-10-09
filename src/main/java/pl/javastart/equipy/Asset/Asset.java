@@ -16,6 +16,7 @@ public class Asset {
     @Column(unique = true)
     private String serialNumber;
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Asset() {
