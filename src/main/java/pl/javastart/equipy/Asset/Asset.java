@@ -5,7 +5,7 @@ import pl.javastart.equipy.Category.Category;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "asset")
 @Builder
 public class Asset {
     @Id
