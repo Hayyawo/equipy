@@ -1,12 +1,27 @@
 package pl.javastart.equipy.Asset;
 
 import lombok.Builder;
+
 @Builder
 public class AssetResponse {
     private String name;
     private String description;
     private String serialNumber;
     private String category;
+
+    public AssetResponse() {
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public AssetResponse(String name, String description, String serialNumber, String category) {
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.category = category;
+    }
 
     public String getName() {
         return name;
@@ -32,11 +47,4 @@ public class AssetResponse {
         this.serialNumber = serialNumber;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

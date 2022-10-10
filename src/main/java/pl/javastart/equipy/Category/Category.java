@@ -16,6 +16,9 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Asset> assets = new ArrayList<>();
 
+    public Category() {
+    }
+
 
 
     public Long getId() {

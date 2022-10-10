@@ -8,6 +8,11 @@ public class AssetRequest {
     private String serialNumber;
     private Category category;
 
+    public AssetRequest() {
+    }
+
+
+
     public String getName() {
         return name;
     }
