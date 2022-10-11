@@ -2,7 +2,6 @@ package pl.javastart.equipy.Asset;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +22,11 @@ public class AssetService {
                 .collect(Collectors.toList());
     }
 
-    public List<Asset> findByNameOrSerialNumber(String name, String serialNumber) {
-        return new ArrayList<>(repository.findByNameContainingIgnoreCaseOrSerialNumberContainingIgnoreCase(name, serialNumber));
+    public List<AssetResponse> findByNameOrSerialNumber(String name, String serialNumber) {
+        return repository.findByNameContainingIgnoreCaseOrSerialNumberContainingIgnoreCase(name,serialNumber)
+                .stream()
+                .map(AssetMapper::map)
+                .collect(Collectors.toList());
     }
 
     public void save(AssetRequest assetRequest) {

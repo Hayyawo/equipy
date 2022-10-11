@@ -1,11 +1,12 @@
 package pl.javastart.equipy.Category;
 
+import lombok.Data;
 import pl.javastart.equipy.Asset.Asset;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 @Entity
 public class Category {
     @Id
@@ -20,6 +21,12 @@ public class Category {
     }
 
 
+    public Category(Long id, String name, String description, List<Asset> assets) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.assets = assets;
+    }
 
     public Long getId() {
         return id;
@@ -44,6 +51,5 @@ public class Category {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 }

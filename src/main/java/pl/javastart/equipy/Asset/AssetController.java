@@ -17,14 +17,13 @@ public class AssetController {
         this.assetRepository = assetRepository;
     }
 
-    @GetMapping("/api/assets")
-    public List<AssetResponse> getAssets() {
-        return assetService.getAllAssets();
-    }
-
-    @GetMapping("api/assets{text}")
-    public List<Asset> findByNameOrSerialNumber(@PathVariable(required = false) String text) {
+    @GetMapping("api/assets")
+    public List<AssetResponse> findByNameOrSerialNumber(@RequestParam(required = false) String text) {
+        if (text == null) {
+            return assetService.getAllAssets();
+        }
         return assetService.findByNameOrSerialNumber(text, text);
+
     }
 
     @PostMapping("api/assets")

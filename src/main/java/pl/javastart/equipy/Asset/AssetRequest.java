@@ -1,17 +1,24 @@
 package pl.javastart.equipy.Asset;
 
-import pl.javastart.equipy.Category.Category;
+import lombok.Builder;
 
+@Builder
 public class AssetRequest {
+
     private String name;
     private String description;
     private String serialNumber;
-    private Category category;
+    private String category;
 
     public AssetRequest() {
     }
 
-
+    public AssetRequest(String name, String description, String serialNumber, String category) {
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.category = category;
+    }
 
     public String getName() {
         return name;
@@ -37,11 +44,11 @@ public class AssetRequest {
         this.serialNumber = serialNumber;
     }
 
-    public Category getCategory() {
-        return category;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public String getCategory() {
+        return category;
     }
 }
