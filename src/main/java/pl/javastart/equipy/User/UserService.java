@@ -1,7 +1,6 @@
 package pl.javastart.equipy.User;
 
 import org.springframework.stereotype.Service;
-import pl.javastart.equipy.AlreadyExistsPesel;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

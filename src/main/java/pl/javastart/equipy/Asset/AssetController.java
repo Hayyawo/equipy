@@ -32,4 +32,16 @@ public class AssetController {
         assetService.save(assetRequest);
         return new ResponseEntity<>(assetRequest, HttpStatus.CREATED);
     }
+    @GetMapping("api/assets/{id}")
+    public ResponseEntity<AssetResponse> findById(@PathVariable long id){
+        AssetResponse assetResponse = assetService.findById(id);
+        return new ResponseEntity<>(assetResponse,HttpStatus.OK);
+    }
+
+    @PutMapping("api/assets/{id}")
+    public ResponseEntity<AssetRequest> update(@PathVariable long id, @RequestBody AssetRequest assetRequest){
+        findById(id);
+        assetService.update(assetRequest);
+        return new ResponseEntity<>(assetRequest,HttpStatus.OK);
+    }
 }

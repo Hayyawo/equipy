@@ -18,4 +18,8 @@ public class CategoryService {
                 .map(Category::getName)
                 .collect(Collectors.toList());
     }
+
+    public Category findCategoryByName(String category) {
+        return categoryRepository.findByName(category);
+    }
 }

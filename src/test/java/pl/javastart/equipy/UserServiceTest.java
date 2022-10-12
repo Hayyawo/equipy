@@ -6,12 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.javastart.equipy.User.User;
-import pl.javastart.equipy.User.UserRepository;
-import pl.javastart.equipy.User.UserRequest;
-import pl.javastart.equipy.User.UserService;
+import pl.javastart.equipy.User.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,14 +35,15 @@ class UserServiceTest {
     }
 
     @Test
-    void updated() {
+    void updatedOk() {
         //given
         UserRequest userRequest = new UserRequest();
         userRequest.setPesel("1234");
         User user = new User();
         user.setPesel(userRequest.getPesel());
+        //when
         when(userRepository.findByPesel(userRequest.getPesel())).thenReturn(Optional.of(user));
-
+        //then
         verify(userRepository).save(user);
     }
 
@@ -52,11 +51,42 @@ class UserServiceTest {
     void savedOk() {
         //given
         User user = new User();
-
         //when
         userRepository.save(user);
-
         //then
         verify(userRepository).save(user);
     }
+    @Test
+    void findByIdOk(){
+        long id = 1;
+        UserResponse userResponse = new UserResponse();
+        User user = new User();
+        userResponse.setId(id);
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+        verify(userRepository).findById(id);
+    }
+    @Test
+    void getAllUsersOk(){
+        List<UserResponse> userResponses = List.of(new UserResponse());
+        User users = new User();
+
+
+
+        verify(userRepository).findAll();
+    }
+    @Test
+    void findByLastNameOk(){
+
+        User user = new User();
+        user.setLastName("aaa");
+        List<User> users = List.of(user);
+        userRepository.findByLastNameContainingIgnoreCase(user.getLastName());
+
+
+        verify(userRepository).findByLastNameContainingIgnoreCase("aaa");
+    }
+
+
 }
