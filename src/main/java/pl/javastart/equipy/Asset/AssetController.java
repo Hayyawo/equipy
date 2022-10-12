@@ -9,12 +9,12 @@ import java.util.List;
 @RestController
 public class AssetController {
     private final AssetService assetService;
-    private final AssetRepository assetRepository;
 
-    public AssetController(AssetService assetService, AssetRepository assetRepository) {
+
+    public AssetController(AssetService assetService) {
         this.assetService = assetService;
 
-        this.assetRepository = assetRepository;
+
     }
 
     @GetMapping("api/assets")

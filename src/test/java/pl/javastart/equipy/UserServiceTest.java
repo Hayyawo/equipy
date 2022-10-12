@@ -10,6 +10,7 @@ import pl.javastart.equipy.User.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,49 +42,88 @@ class UserServiceTest {
         userRequest.setPesel("1234");
         User user = new User();
         user.setPesel(userRequest.getPesel());
-        //when
         when(userRepository.findByPesel(userRequest.getPesel())).thenReturn(Optional.of(user));
+        //when
+        userService.update(userRequest);
         //then
+        verify(userRepository).findByPesel(user.getPesel());
         verify(userRepository).save(user);
+        verifyNoMoreInteractions(userRepository);
     }
 
     @Test
     void savedOk() {
         //given
         User user = new User();
+        UserRequest userRequest = new UserRequest();
+        userRequest.setPesel("1545");
+        user.setPesel(userRequest.getPesel());
         //when
-        userRepository.save(user);
+        userService.save(userRequest);
         //then
         verify(userRepository).save(user);
     }
+
     @Test
-    void findByIdOk(){
-        long id = 1;
-        UserResponse userResponse = new UserResponse();
+    void saveThrowAlreadyExistsPesel() {
+        //given
+        UserRequest userRequest = new UserRequest();
         User user = new User();
-        userResponse.setId(id);
+        user.setPesel("1");
+        userRequest.setPesel("1");
+        when(userRepository.findByPesel(userRequest.getPesel())).thenReturn(Optional.of(user));
+        //when
+        //then
+        Assertions.assertThrows(AlreadyExistsPesel.class, () -> userService.save(userRequest));
+    }
 
+    @Test
+    void findByIdOk() {
+        //given
+        long id = 1;
+        User user = new User();
+        user.setId(id);
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
-
+        //when
+        userService.findById(id);
+        //then
         verify(userRepository).findById(id);
     }
+
     @Test
-    void getAllUsersOk(){
-        List<UserResponse> userResponses = List.of(new UserResponse());
-        User users = new User();
+    void findByIdNotFounded() {
+        //given
+        long id = 1;
+        User user = new User();
+        user.setId(id);
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+        //when
+        //then
+        Assertions.assertThrows(NoSuchElementException.class, () -> userService.findById(id));
+    }
 
-
-
+    @Test
+    void getAllUsersOk() {
+        //then
+        User user = new User();
+        List<User> users = List.of(user);
+        when(userRepository.findAll()).thenReturn(users);
+        //when
+        userService.getAllUsers();
+        //then
         verify(userRepository).findAll();
     }
+
     @Test
-    void findByLastNameOk(){
+    void findByLastNameOk() {
 
         User user = new User();
         user.setLastName("aaa");
         List<User> users = List.of(user);
-        userRepository.findByLastNameContainingIgnoreCase(user.getLastName());
+        when(userRepository.findByLastNameContainingIgnoreCase(user.getLastName())).thenReturn(users);
 
+
+        userService.findByLastName(user.getLastName());
 
         verify(userRepository).findByLastNameContainingIgnoreCase("aaa");
     }

@@ -40,9 +40,7 @@ public class UserService {
 
     public UserResponse findById(Long id) {
         return userRepository.findById(id)
-                .stream()
                 .map(UserDtoMapper::mapResponse)
-                .findFirst()
                 .orElseThrow();
     }
 
