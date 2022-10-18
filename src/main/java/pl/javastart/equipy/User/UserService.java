@@ -1,6 +1,8 @@
 package pl.javastart.equipy.User;
 
 import org.springframework.stereotype.Service;
+import pl.javastart.equipy.Assignment.AssigmentMapper;
+import pl.javastart.equipy.Assignment.AssignmentResponse;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -9,10 +11,12 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private AssigmentMapper assigmentMapper;
 
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, AssigmentMapper assigmentMapper) {
         this.userRepository = userRepository;
+        this.assigmentMapper = assigmentMapper;
     }
 
 
@@ -52,5 +56,14 @@ public class UserService {
         byPesel.setLastName(userRequest.getLastName());
         byPesel.setPesel(userRequest.getPesel());
         userRepository.save(byPesel);
+    }
+
+    List<AssignmentResponse> getUserAssignments(Long userId) {
+        return userRepository.findById(userId)
+                .map(User::getAssignments)
+                .orElseThrow()
+                .stream()
+                .map(assigment -> assigmentMapper.map(assigment))
+                .collect(Collectors.toList());
     }
 }

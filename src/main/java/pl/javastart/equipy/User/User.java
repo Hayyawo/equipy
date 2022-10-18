@@ -1,6 +1,10 @@
 package pl.javastart.equipy.User;
 
+import pl.javastart.equipy.Assignment.Assignment;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "users")
@@ -12,11 +16,20 @@ public class User {
     private String lastName;
     @Column(unique = true)
     private String pesel;
-
+    @OneToMany(mappedBy = "users")
+    private List<Assignment> assignments = new ArrayList<>();
     public User(String firstName, String lastName, String pesel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
 
     public User() {
