@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public class AssignmentResponse {
+public class AssignmentUserResponse {
     private Long id;
     private LocalDateTime start;
     private LocalDateTime end;
@@ -13,10 +13,10 @@ public class AssignmentResponse {
     private String assetName;
     private String assetSerialNumber;
 
-    public AssignmentResponse() {
+    public AssignmentUserResponse() {
     }
 
-    public AssignmentResponse(Long id, LocalDateTime start, LocalDateTime end, Long assetId, String assetName, String assetSerialNumber) {
+    public AssignmentUserResponse(Long id, LocalDateTime start, LocalDateTime end, Long assetId, String assetName, String assetSerialNumber) {
         this.id = id;
         this.start = start;
         this.end = end;

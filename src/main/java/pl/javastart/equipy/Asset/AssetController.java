@@ -3,6 +3,7 @@ package pl.javastart.equipy.Asset;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.javastart.equipy.Assignment.AssignmentAssetResponse;
 
 import java.util.List;
 
@@ -43,5 +44,9 @@ public class AssetController {
         findById(id);
         assetService.update(assetRequest);
         return new ResponseEntity<>(assetRequest,HttpStatus.OK);
+    }
+    @GetMapping("/api/assets/{assetId}/assignments")
+    public List<AssignmentAssetResponse> getAssetHistory(@PathVariable Long assetId){
+        return assetService.getAssetHistory(assetId);
     }
 }

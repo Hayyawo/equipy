@@ -1,6 +1,8 @@
 package pl.javastart.equipy.Asset;
 
 import org.springframework.stereotype.Service;
+import pl.javastart.equipy.Assignment.AssigmentAssetMapper;
+import pl.javastart.equipy.Assignment.AssignmentAssetResponse;
 import pl.javastart.equipy.Category.Category;
 import pl.javastart.equipy.Category.CategoryService;
 
@@ -64,5 +66,14 @@ public class AssetService {
         asset.setSerialNumber(assetRequest.getSerialNumber());
         asset.setName(assetRequest.getName());
         assetRepository.save(asset);
+    }
+
+    public List<AssignmentAssetResponse> getAssetHistory(Long assetId) {
+        return repository.findById(assetId)
+                .map(Asset::getAssignments)
+                .orElseThrow()
+                .stream()
+                .map(AssigmentAssetMapper::map)
+                .collect(Collectors.toList());
     }
 }

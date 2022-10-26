@@ -33,4 +33,5 @@ public class AssetMapper {
                 .category(byName)
                 .build();
     }
+
 }

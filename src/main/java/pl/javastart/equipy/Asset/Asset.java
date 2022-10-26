@@ -1,9 +1,12 @@
 package pl.javastart.equipy.Asset;
 
 import lombok.Builder;
+import pl.javastart.equipy.Assignment.Assignment;
 import pl.javastart.equipy.Category.Category;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "asset")
 @Builder
@@ -18,15 +21,26 @@ public class Asset {
     @ManyToOne
     private Category category;
 
+    @OneToMany(mappedBy = "asset")
+    private List<Assignment> assignments = new ArrayList<>();
     public Asset() {
     }
 
-    public Asset(Long id, String name, String description, String serialNumber, Category category) {
+    public Asset(Long id, String name, String description, String serialNumber, Category category, List<Assignment> assignments) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.serialNumber = serialNumber;
         this.category = category;
+        this.assignments = assignments;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
 
     public Category getCategory() {

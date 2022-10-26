@@ -3,7 +3,7 @@ package pl.javastart.equipy.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.javastart.equipy.Assignment.AssignmentResponse;
+import pl.javastart.equipy.Assignment.AssignmentUserResponse;
 
 import java.util.List;
 
@@ -15,11 +15,6 @@ public class UserController {
     public UserController(UserService userService, UserRepository repository) {
         this.userService = userService;
         this.repository = repository;
-    }
-
-    @GetMapping("/api/users/{id}/assignments")
-    public List<AssignmentResponse> getUserAssignments(@PathVariable Long id) {
-        return userService.getUserAssignments(id);
     }
 
     @GetMapping("api/users")
@@ -50,4 +45,9 @@ public class UserController {
         return new ResponseEntity<>(userRequest, HttpStatus.OK);
     }
 
+
+    @GetMapping("/api/users/{id}/assignments")
+    public List<AssignmentUserResponse> getUserAssignments(@PathVariable Long id) {
+        return userService.getUserAssignments(id);
+    }
 }
