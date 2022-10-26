@@ -18,11 +18,6 @@ public class User {
     private String pesel;
     @OneToMany(mappedBy = "users")
     private List<Assignment> assignments = new ArrayList<>();
-    public User(String firstName, String lastName, String pesel) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.pesel = pesel;
-    }
 
     public List<Assignment> getAssignments() {
         return assignments;
@@ -30,9 +25,6 @@ public class User {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
-    }
-
-    public User() {
     }
 
     public Long getId() {

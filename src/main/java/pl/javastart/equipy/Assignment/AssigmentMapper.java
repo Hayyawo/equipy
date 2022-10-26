@@ -8,8 +8,8 @@ public class AssigmentMapper {
         Asset asset = assignment.getAsset();
         return AssignmentResponse.builder()
                 .id(assignment.getId())
-                .start(assignment.getStart())
-                .end(assignment.getEnd())
+                .start(assignment.getStartTime())
+                .end(assignment.getEndTime())
                 .assetId(asset.getId())
                 .assetName(asset.getName())
                 .assetSerialNumber(asset.getSerialNumber())

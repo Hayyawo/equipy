@@ -17,7 +17,7 @@ public class UserController {
         this.repository = repository;
     }
 
-    @GetMapping("/{id}/assignments")
+    @GetMapping("/api/users/{id}/assignments")
     public List<AssignmentResponse> getUserAssignments(@PathVariable Long id) {
         return userService.getUserAssignments(id);
     }
