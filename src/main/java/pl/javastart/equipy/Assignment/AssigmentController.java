@@ -12,9 +12,11 @@ import java.time.LocalDateTime;
 @RestController
 public class AssigmentController {
     private final AssigmentService assigmentService;
+    private final AssigmentRepository assigmentRepository;
 
-    public AssigmentController(AssigmentService assigmentService) {
+    public AssigmentController(AssigmentService assigmentService, AssigmentRepository assigmentRepository) {
         this.assigmentService = assigmentService;
+        this.assigmentRepository = assigmentRepository;
     }
 
     @PostMapping("/api/assignments")
@@ -24,7 +26,12 @@ public class AssigmentController {
 
     @PostMapping("/api/assignments/{assignmentId}/end")
     public ResponseEntity<LocalDateTime> end(@PathVariable Long assignmentId){
-        Assignment assignment = assigmentService.endAssigment(assignmentId);
-        return new ResponseEntity<>(assignment.getEndTime(), HttpStatus.OK);
+        Assignment assignmentFound = assigmentRepository.findById(assignmentId).orElseThrow();
+        if (assignmentFound.getEndTime() !=null) {
+            throw new AlreadyEnded();
+        }else {
+            Assignment assignment = assigmentService.endAssigment(assignmentId);
+            return new ResponseEntity<>(assignment.getEndTime(), HttpStatus.OK);
+        }
     }
 }
